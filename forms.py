@@ -180,8 +180,6 @@ class County:
             k = 'Approximately {} percent of this county is low income.'.format(proportion*100)
         else:
             m, k = [], []
-        print (m)
-        print (k)
         return table1
     
     def racial_statistics_women_national():
@@ -202,10 +200,10 @@ class County:
     def racial_statistics_women_county(self):
         #RAW COUNTY STATISTICS
         if ("RACIAL STATISTICS" in self.feature_dictionary.keys()):
-            all_women = sum(self.feature_dictionary["RACIAL STATISTICS"])
+            allWomen = sum(self.feature_dictionary["RACIAL STATISTICS"].values())
             minorityWomen = 0
             for race in County.minorityNames: 
-                if self.feature_dictionary["RACIAL STATISTICS"].contains(race):
+                if (race in self.feature_dictionary["RACIAL STATISTICS"].keys()):
                     minorityWomen += self.feature_dictionary["RACIAL STATISTICS"][race]
         else: 
             self.feature_dictionary["RACIAL STATISTICS"] = {}
@@ -224,7 +222,7 @@ class County:
         if float(county_proportion/County.nationalRacialProportion) > 1 :
             print ('This is also {}'.format(((float(county_proportion/County.nationalRacialProportion))-1)*100), 'percent higher than the national average.')
         table1 = Table().with_column("Race", ['Black', 'Indigenous', 'Asian', 'Hawaiian', 'Other', 'Hispanic', 'White']).with_column(
-            "Statistic", all_women)
+            "Statistic", allWomen)
         return table1
 
 
